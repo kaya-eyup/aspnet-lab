@@ -17,6 +17,11 @@
 | `double Fiyat` | — (para yok) | para `decimal` olur |
 | adres lambda içinde okunuyor | lambda dışında, `?? throw` | fail fast |
 | many-to-many (ürün ↔ kategori) | one-to-many (öğe → kategori) | öğenin tek kategorisi var |
+| `dotnet-ef` global | `dotnet-ef` global (10.0.12) | Aynı. Sürümü depoya bağlamak, otomatik yayınla birlikte Blok H'de |
+| SQLite dosyası + ayrı görüntüleyici | LocalDB + SQL Server Object Explorer | Canlıyla aynı motor |
+| `HasData` + elle verilen `Id` | `UseSeeding` + `db.json`; numarayı veritabanı veriyor | Veri büyüyecek, anahtarları veritabanı üretiyor |
+| `ToList()` (senkron) | `ToListAsync()` + `await` | Müfredat kararı |
+| `.Where(u => u.Aktif)` | `?categoryId=` süzgeci (Gün 48). Seçilmişler gruplama sorgusuyla (Gün 56) | Seçilmişler bir bayrak değil, hesaplanan bir liste |
 
 Kural tek cümle: **Ekrana bir şey basan her şey web'de. API ekrana hiçbir şey basmaz, JSON döndürür ve işi orada biter.** Tablonun son satırı da capstone'daki bütün ek parçaların sebebini gösteriyor: MVC'de controller ile View arasında ağ yok, capstone'da var. JSON, fetch, zod ve CORS, o ağ yüzünden var.
 

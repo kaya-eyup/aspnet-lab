@@ -22,6 +22,13 @@
 | `HasData` + elle verilen `Id` | `UseSeeding` + `db.json`; numarayı veritabanı veriyor | Veri büyüyecek, anahtarları veritabanı üretiyor |
 | `ToList()` (senkron) | `ToListAsync()` + `await` | Müfredat kararı |
 | `.Where(u => u.Aktif)` | `?categoryId=` süzgeci (Gün 48). Seçilmişler gruplama sorgusuyla (Gün 56) | Seçilmişler bir bayrak değil, hesaplanan bir liste |
+| `ToList()` (senkron) | `ToListAsync(cancellationToken)` (bugün) |
+| Entity doğrudan view'a gidiyor (`@model List<Urun>`) | DTO (bugün) |
+| `Where(urun => urun.Aktif && urun.Anasayfa)`: anasayfadaki ürünleri editörün işaretlediği bir bayrak belirliyor | Haftanın Seçilmişleri hesaplanıyor (Gün 56). Bayrakta kararı insan verir, hesapta veri. Capstone'da yönetim paneli yok ve liste her hafta kendiliğinden değişmeli, bu yüzden hesap. park [gun47] maddesinin yarısı bu. |
+| `HasData` ile sabit Id'li 3 slider | Küçük, değişmeyen, anahtarı sabit veri için doğru araç. Capstone'un verisine uymuyor (Gün 47'deki üç gerekçe). |
+| `base.OnModelCreating(modelBuilder)` | Düz `DbContext`'te bir şey yapmıyor. Gün 58'de `IdentityDbContext`'e geçince zorunlu olacak, çünkü Identity tablolarını base kuruyor. |
+
+
 
 Kural tek cümle: **Ekrana bir şey basan her şey web'de. API ekrana hiçbir şey basmaz, JSON döndürür ve işi orada biter.** Tablonun son satırı da capstone'daki bütün ek parçaların sebebini gösteriyor: MVC'de controller ile View arasında ağ yok, capstone'da var. JSON, fetch, zod ve CORS, o ağ yüzünden var.
 
